@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import com.api.dao.UsuarioDAO;
 import com.api.model.Usuario;
 
 @RestController
+@CrossOrigin(origins="http://localhost:4200/")
 @RequestMapping("usuario")
 public class UsuarioRest {
 	
@@ -25,9 +27,22 @@ public class UsuarioRest {
 	
 	//METODOS HTTP-- SOLICITUD AL SERVIDOR
 	@PostMapping("/guardar")
-	public void guardar(@RequestBody Usuario usuario){
-		
-		usuarioDAO.save(usuario);
+	public void guardar(@RequestBody Usuario usuario) throws Exception{
+		if(usuario.getNombre() == null || usuario.getNombre() == "" || 
+		 usuario.getApellidos() == null || usuario.getApellidos() == "" ||
+		 usuario.getDni() == null || usuario.getDni() == "" ||
+		 usuario.getDomicilio() == null || usuario.getDomicilio() == "" ||
+		 usuario.getEstado() == null || usuario.getEstado() == "" ||
+		 usuario.getCiudad() == null || usuario.getCiudad() == "" ||
+		 usuario.getFechaNacimiento() == null || usuario.getFechaNacimiento() == ""
+		  )
+		{
+			throw new Exception("NO SE RECIBEN DATOS VACÍOS");
+		}
+		else
+		{
+			usuarioDAO.save(usuario);
+		}
 	}
 	@GetMapping("/listar")
 	public List<Usuario> listar(){
@@ -41,8 +56,22 @@ public class UsuarioRest {
 	}
 	
 	@PutMapping("/actualizar")
-	public void actualizar(@RequestBody Usuario usuario){
-		usuarioDAO.save(usuario);
+	public void actualizar(@RequestBody Usuario usuario) throws Exception{
+		if(usuario.getNombre() == null || usuario.getNombre() == "" || 
+				 usuario.getApellidos() == null || usuario.getApellidos() == "" ||
+				 usuario.getDni() == null || usuario.getDni() == "" ||
+				 usuario.getDomicilio() == null || usuario.getDomicilio() == "" ||
+				 usuario.getEstado() == null || usuario.getEstado() == "" ||
+				 usuario.getCiudad() == null || usuario.getCiudad() == "" ||
+				 usuario.getFechaNacimiento() == null || usuario.getFechaNacimiento() == ""
+				  )
+				{
+					throw new Exception("NO SE RECIBEN DATOS VACÍOS");
+				}
+				else
+				{
+					usuarioDAO.save(usuario);
+				}
 	}
 	
 	@GetMapping("/{id}")

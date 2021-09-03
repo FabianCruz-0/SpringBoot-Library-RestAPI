@@ -28,7 +28,7 @@ public class Libros {
 	@Column(name ="precio")
 	private int  precio;
 	
-	private Libros () 
+	public Libros () 
 	{
 		
 	}
